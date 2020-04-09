@@ -13,7 +13,8 @@ import UserGreeting from './components/UserGreeting';
 import NameList from './components/NameList';
 import Form from './components/Form';
 import Clock from './components/Clock'
-
+import ParentRef from './components/ParentRef';
+import Text from './components/Text';
 class App extends Component {
   render(){
     return (
@@ -34,6 +35,8 @@ class App extends Component {
         {/* <UserGreeting></UserGreeting> */}
         <Clock></Clock>
         <Form></Form>
+        <ParentRef></ParentRef>
+        {/* <Text></Text> */}
         {/* <NameList></NameList> */}
         
       </div>
