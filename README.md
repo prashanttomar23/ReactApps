@@ -1,5 +1,5 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
+##Move to src folder for Clock Script
 ## Available Scripts
 
 In the project directory, you can run:
