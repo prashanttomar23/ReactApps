@@ -18,16 +18,12 @@ export class Clock extends Component {
 
     timenw=()=>{
         let t=new Date();
-        console.log(t.getTime())
-    
         let sec=t.getSeconds();
         let min=t.getMinutes();
         let hr=t.getHours(); 
         sec = sec<10 ? "0"+sec :sec
         min = min<10 ? "0"+min :min
         hr = hr<10 ? "0"+hr :hr
-        
-    
         return `${hr}:${min}:${sec}`
     }
     render() {
