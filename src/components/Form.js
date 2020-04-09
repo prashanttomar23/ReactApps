@@ -1,63 +1,116 @@
 import React, { Component } from 'react'
 
 const arrUsers=[]
-
-class Form extends Component {
-
-    
+let idC=0
+class Form extends Component { 
     constructor(props) {
         super(props)
-    
         this.state = {
              username:'',
-             arr: []
-             
+             arr: [],
+             isAddBtn:true     
         }
     }
     handleUsenameChange=(event)=>{
         this.setState({
-            username:event.target.value,
-            
+            username:event.target.value,    
         })
     }
-    handleSubmit=event=>{
-        arrUsers.push(this.state.username)
-        
-        console.log(arrUsers)
+    addUser=()=>{
+        arrUsers.push(
+            {id:parseInt(10000*Math.random()),
+            name:this.state.username
+        })
+        // console.log(arrUsers)
         this.setState({
             arr: arrUsers,
+            username:""
             
         })
-        console.log(this.state)
+        // console.log(this.state)
     }
-    editUser=event=>{
-        console.log(event.target.parentNode.firstChild.innerHTML)
+    editUser=(id)=>{
+        // console.log(event.target.parentNode.firstChild.innerHTML)
+        console.log(id)
+        arrUsers.forEach(user => {
+            if(user.id==id){
+                idC=id
+                this.setState({
+                    username:user.name,
+                    isAddBtn:false
+                })
+                // console.log("yes from edit",user)
+            }  
+        });
+        // console.log(this.findByID(id))
+        // this.setState({
+        //     username:this.findByID.bind(this,id).name
+        // })
     }
-    deleteUser=event=>{
-        console.log(event.target.parentNode.firstChild)
-        arrUsers.splice(arrUsers.indexOf(event.target.parentNode.firstChild.innerHTML),1)
-        console.log(arrUsers)
+    updateUser=()=>{
+        arrUsers.forEach(user => {
+            if(user.id==idC){
+                user.name=this.state.username
+                console.log("yes from edit",user)
+            }  
+        });
+        this.setState({
+            isAddBtn:true,
+            arr:arrUsers
+        })
+        // console.log(this.state.username,idUser)
+    }
+    deleteUser=deleteId=>{
+        console.log(deleteId)
+        arrUsers.forEach(user => {
+            if(user.id==deleteId){
+                console.log(user,arrUsers.indexOf(user))
+                arrUsers.splice(arrUsers.indexOf(user),1)
+                console.log("this is arrayuses",arrUsers)
+            }
+        });
         this.setState({
             arr:arrUsers
         })
 
     }
+    findByID=(ID)=>{
+        arrUsers.forEach(user => {
+            if(ID==user.id){
+                return(user)
+            }
+        });
+    }
     render() {
-        return (
-            <div>
+        
+            if (this.state.isAddBtn){
+                return(
+                <div>
                 <div>Usernames</div>
                 <input type='text' value={this.state.username} onChange={this.handleUsenameChange}></input>
-                <button onClick={this.handleSubmit}>ADD</button>    
-            <ul>{arrUsers.map(user=>
-                    <div><span>{user}</span>
-                    <button onClick={this.editUser} >EDIT</button>
-                    <button onClick={this.deleteUser} >DELETE</button></div>
-                    
-            )}</ul>
-            </div>
+                <button onClick={this.addUser}>ADD</button>    
+                <ul>{arrUsers.map(user=>
+                    <div key={user.id}><span>{user.name}</span>
+                    <button onClick={this.editUser.bind(this,user.id)} >EDIT</button>
+                    <button onClick={this.deleteUser.bind(this,user.id)} >DELETE</button></div>   
+                )}</ul>
+            </div>)
+            }
+            else {
+                return(
+                    <div>
+                <div>Usernames</div>
+                <input type='text' value={this.state.username} onChange={this.handleUsenameChange}></input>
+                <button onClick={this.updateUser.bind(this)}>Update</button>    
+                <ul>{arrUsers.map(user=>
+                    <div key={user.id}><span>{user.name}</span>
+                    <button onClick={this.editUser.bind(this,user.id)} >EDIT</button>
+                    <button onClick={this.deleteUser.bind(this,user.id)} >DELETE</button></div>  
+                )}</ul>
+                </div>
+                )
+            }
             
-            
-        )
     }
 }
 export default Form
