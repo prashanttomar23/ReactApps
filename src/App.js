@@ -14,6 +14,7 @@ import './App.css';
 import Form from './components/Form';
 import Clock from './components/Clock'
 import ParentRef from './components/ParentRef';
+import ComponentA from './components/ComponentA';
 
 class App extends Component {
   render(){
@@ -36,6 +37,7 @@ class App extends Component {
         <Clock></Clock>
         <Form></Form>
         <ParentRef></ParentRef>
+        <ComponentA></ComponentA>
         
         {/* <NameList></NameList> */}
         
